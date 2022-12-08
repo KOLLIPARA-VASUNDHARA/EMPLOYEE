@@ -1,0 +1,26 @@
+SQL> create package pro is
+  2  procedure delrec(no number);
+  3  procedure incrsal(no number);
+  4  end pro;
+  5  /
+Package created.
+
+create package body pro is
+procedure delrec(no number) is
+begin
+delete from emp1 where empno=no;
+commit;
+end;
+procedure incrsal(no number) is
+sa number;
+begin
+select sal into sa from emp1 where empno=no;
+if sa<1000 then
+sa:=sa*1.10;
+else
+sa:=sa*1.20;
+end if;
+update emp1 set sal=sa where empno=no;
+commit;
+end;
+end pro;
